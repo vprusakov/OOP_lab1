@@ -9,7 +9,7 @@ using namespace std;
 class IniParser {
 private:
 	ifstream file;
-	map<string, map<string, string>> sections;
+	map<string, map<string, string> > sections;
 public:
 	IniParser() {};
 	// Opens Ini file.

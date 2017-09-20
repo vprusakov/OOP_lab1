@@ -26,7 +26,7 @@ void IniParser::Parse() {
 	}
 }
 void IniParser::PrintAll() {
-	std::map<string, map<string, string>>::iterator it;
+	std::map<string, map<string, string> >::iterator it;
 	std::map<string, string>::iterator init;
 	for (it = sections.begin(); it != sections.end(); it++) {
 		cout << it->first << endl;
