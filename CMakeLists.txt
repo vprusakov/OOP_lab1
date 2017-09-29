@@ -3,8 +3,8 @@ project(OOP_lab1)
 
 set(SOURCE_FILES
         src/main.cpp
-        src/IniParser/source.cpp
-        src/IniParser/header.h
+        src/IniParser/IniParser.cpp
+        src/IniParser/IniParser.h
         src/IniParserException/IniParserException.cpp
         src/IniParserException/IniParserException.h)
 

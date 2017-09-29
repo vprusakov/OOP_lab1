@@ -1,4 +1,5 @@
-//
-// Created by Macbook Air on 29.09.2017.
-//
+#include "IniParserException.h"
 
+const char* IniParserException::what() const {
+	return message.c_str();
+}

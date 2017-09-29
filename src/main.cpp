@@ -1,13 +1,16 @@
-#include "IniParser/header.h"
+#include "IniParser/IniParser.h"
 
 int main() {
     IniParser p;
-    p.Initialize("input_files/lab01_input_correct_09.ini");
-    p.Parse();
-    cout << p.IsHaveParam("DEBUG", "CheckThisParameter") << " ";
-	p.PrintAll();
-
-    //cout << p.IsHaveParam("COMMON", "LogNCMD") << endl;
-    system("pause");
+	try {
+		p.Initialize("../input_files/lab01_input_correct_111.ini");
+		p.Parse();
+		cout << p.IsHaveParam("DEBUG", "CheckThisParameter") << " ";
+		p.PrintAll();
+	}
+	catch (IniParserException e) {
+		cerr << e.what();
+	}
+	system("pause");
     return 0;
 }

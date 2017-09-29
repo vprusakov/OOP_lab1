@@ -1,12 +1,13 @@
 #pragma once
 
 #include <exception>
+#include <string>
 
 class IniParserException : public std::exception {
 public:
-    IniParserException(const string &exception_name) : message(exception_name) {}
-    const char* what() const throw()  {};
+    IniParserException(const std::string &exception) : message(exception) {}
+	const char* what() const override;
     ~IniParserException() {}
 private:
-    string message;
+    std::string message;
 };
