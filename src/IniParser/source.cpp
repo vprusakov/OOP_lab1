@@ -1,8 +1,12 @@
 #include "header.h"
+#include "IniParserException.h"
 
 void IniParser::Initialize(string filename) {
 	file.open(filename);
+    if (!file.is_open() || !file.good()) throw ExceptionIO("file error");
 };
+
+
 void IniParser::Parse() {
 
 	string s;
