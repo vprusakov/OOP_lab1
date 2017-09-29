@@ -1,5 +1,5 @@
 #include "header.h"
-#include "IniParserException.h"
+#include "../IniParserException/IniParserException.h"
 
 void IniParser::Initialize(string filename) {
 	file.open(filename);
