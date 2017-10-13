@@ -3,10 +3,8 @@
 int main() {
     IniParser p;
 	try {
-		p.Initialize("../input_files/lab01_input_correct_111.ini");
-		p.Parse();
-		cout << p.IsHaveParam("DEBUG", "CheckThisParameter") << " ";
-		p.PrintAll();
+		p.Initialize("../input_files/lab01_input_correct_09.ini");
+		cout << p.GetValueInt("DEMODS", "BufferLenSeconds") << endl;
 	}
 	catch (IniParserException e) {
 		cerr << e.what();

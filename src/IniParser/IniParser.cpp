@@ -6,6 +6,7 @@ void IniParser::Initialize(const string& filename) {
 	if (!file.is_open() || !file.good()) {
 		throw IniParserException("Error while opening " + filename + "\n");
 	}
+	Parse();
 };
 void IniParser::Parse() {
 	string s, section_name, param_key, param_value;
@@ -27,7 +28,7 @@ void IniParser::Parse() {
 			if (param_value.find(' ')) {
 				param_value = param_value.substr(0, param_value.find_first_of(' '));
 			}
-			sections[section_name].insert(make_pair(param_key, param_value));
+			data[section_name].insert(make_pair(param_key, param_value));
 		}
 		if (!file.eof()) {
 			getline(file, s);
@@ -38,18 +39,53 @@ void IniParser::Parse() {
 void IniParser::PrintAll() {
 	map<string, map<string, string> >::iterator it;
 	map<string, string>::iterator init;
-	for (it = sections.begin(); it != sections.end(); it++) {
+	for (it = data.begin(); it != data.end(); it++) {
 		cout << it->first << endl;
 		for (init = (it->second).begin(); init != (it->second).end(); init++) {
 			cout << init->first << init->second << endl;
 		}
 	}
 };
-bool IniParser::IsHaveSection(string& section_name) {
-	if (sections.find(section_name) != sections.end()) return true;
+bool IniParser::IsHaveSection(const string& section_name) {
+	if (data.find(section_name) != data.end()) return true;
+	else throw IniParserException("Section '" + section_name + "' is not found.\n");
 	return false;
 };
-bool IniParser::IsHaveParam(string& section_name, string& param_name) {
-	if (sections[section_name].find(param_name) != sections[section_name].end()) return true;
+bool IniParser::IsHaveParam(const string& section_name,const string& param_name) {
+	if (IsHaveSection(section_name)) {
+		if (data[section_name].find(param_name) != data[section_name].end()) return true;
+		else throw IniParserException("Param '" + param_name + "' is not found.\n");
+	}
 	return false;
+};
+int IniParser::GetValueInt(const string& section_name, const string& param_name) {
+	string value = data.find(section_name)->second.find(param_name)->second;
+	int result;
+
+	if (IsHaveParam(section_name, param_name)) {
+		try {
+			result = stoi(value);
+		}
+		catch (const invalid_argument &e) {
+			throw IniParserException("Error while converting int value of " + param_name);
+		}
+	}
+	return result;
+};
+double IniParser::GetValueDouble(const string& section_name, const string& param_name) {
+	string value = data.find(section_name)->second.find(param_name)->second;
+	int result;
+
+	if (IsHaveParam(section_name, param_name)) {
+		try {
+			result = stod(value);
+		}
+		catch (const invalid_argument &e) {
+			throw IniParserException("Error while converting double value of " + param_name);
+		}
+	}
+	return result;
+};
+string IniParser::GetValueString(const string& section_name, const string& param_name) {
+	return data.find(section_name)->second.find(param_name)->second;
 };

@@ -17,14 +17,16 @@ public:
 	//Print
 	void PrintAll();
 	// Checks if a section exists.
-	bool IsHaveSection(string& section_name);
+	bool IsHaveSection(const string& section_name);
 	// Checks if a pair param-section exists.
 	bool IsHaveParam(const string& section_name,const string& param_name);
-	// Returns values.
-	template <class T> T GetValue(string& section_name, string& param_name);
-	
-	std::string GetValueString(const char* section_name, const char* param_name);
+	// Returns integer value for a pair param-section.
+	int GetValueInt(const string& section_name, const string& param_name);
+	// Returns double value for a pair param-section.
+	double GetValueDouble(const string& section_name, const string& param_name);
+	// Return string value for a pair param-section.
+	std::string GetValueString(const string& section_name, const string& param_name);
 private:
 	ifstream file;
-	map<string, map<string, string> > sections;
+	map<string, map<string, string> > data;
 };
