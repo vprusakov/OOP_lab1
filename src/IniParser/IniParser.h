@@ -13,7 +13,7 @@ public:
 	// Opens Ini file.
 	void Initialize(const string& filename);
 	// Processing and saving data
-	void Parse();
+	void Parse() const;
 	//Print
 	void PrintAll();
 	// Checks if a section exists.

@@ -8,7 +8,7 @@ void IniParser::Initialize(const string& filename) {
 	}
 	Parse();
 };
-void IniParser::Parse() {
+void IniParser::Parse() const {
 	string s, section_name, param_key, param_value;
 
 	while (true) {
@@ -46,7 +46,7 @@ void IniParser::PrintAll() {
 		}
 	}
 };
-bool IniParser::IsHaveSection(const string& section_name) {
+bool IniParser::IsHaveSection(const string& section_name) const {
 	if (data.find(section_name) != data.end()) return true;
 	else throw IniParserException("Section '" + section_name + "' is not found.\n");
 	return false;
