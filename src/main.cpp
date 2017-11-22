@@ -1,14 +1,15 @@
 #include "IniParser/IniParser.h"
 
 int main() {
-    IniParser p;
+    IniParser p("../input_files/lab01_input_correct_09.ini");
 	try {
-		p.Initialize("../input_files/lab01_input_correct_091.ini");
-		cout << p.GetValue("DEMODS", "BufferLenSeconds") << endl;
+		//p.PrintAll();
+        p.IsHaveSection("DEMODS");
+        p.IsHaveParam("SECTION2", "RawIQType");
+		//cout << p.GetValue<int>("COMMON", "asdf") << endl;
 	}
-	catch (IniParserException e) {
+	catch (IniParserException& e) {
 		cerr << e.what();
 	}
-	system("pause");
     return 0;
 }

@@ -3,31 +3,31 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <algorithm>
 #include "../IniParserException/IniParserException.h"
 
 using namespace std;
 
 class IniParser {
 public:
-	IniParser() {};
-	// Opens Ini file.
-	void Initialize(const string& filename);
+    //Opens Ini file
+	IniParser(const string& filename) throw(Exc_IO);
+	void Initialize(const string& filename) throw(Exc_IO);
 	// Processing and saving data
-	void Parse() const;
+	void Parse() throw(Exc_IncorrectFormat);
 	//Print
-	void PrintAll();
+	void PrintAll() throw();
 	// Checks if a section exists.
-	bool IsHaveSection(const string& section_name) const;
+	bool IsHaveSection(const string& section_name) const throw();
 	// Checks if a pair param-section exists.
-	bool IsHaveParam(const string& section_name,const string& param_name) const;
-	// Returns integer value for a pair param-section.
-	//int GetValueInt(const string& section_name, const string& param_name);
-	// Returns double value for a pair param-section.
-	//double GetValueDouble(const string& section_name, const string& param_name) ;
-	// Return string value for a pair param-section.
-	//std::string GetValueString(const string& section_name, const string& param_name) const;
+	bool IsHaveParam(const string& section_name,const string& param_name) const
+		throw(Exc_SectionNotFound, Exc_ParamNotFound);
 	template<typename T>
-	T getValue(const std::string &section_name, const std::string &param_name) const;
+	T GetValue(const std::string &section_name, const std::string &param_name) const ;
+    ~IniParser() {
+        data.clear();
+        file.close();
+    }
 private:
 	ifstream file;
 	map<string, map<string, string> > data;
