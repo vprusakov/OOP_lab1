@@ -18,7 +18,7 @@ public:
 	bool IsHaveParam(const std::string& section_name, const std::string& param_name) const;
 	// Return value from data by section and parameter 
 	template<typename T>
-	T GetValue(const std::string &section_name, const std::string &param_name) const noexcept;
+	T GetValue(const std::string &section_name, const std::string &param_name) const;
 	~IniParser();
 private:
 	// Opens Ini file
