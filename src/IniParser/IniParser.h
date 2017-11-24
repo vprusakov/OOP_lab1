@@ -1,34 +1,28 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <map>
 #include <algorithm>
 #include "../IniParserException/IniParserException.h"
 
-using namespace std;
-
 class IniParser {
 public:
-    //Opens Ini file
-	IniParser(const string& filename) throw(Exc_IO);
-	void Initialize(const string& filename) throw(Exc_IO);
+	IniParser(const std::string& filename);
 	// Processing and saving data
-	void Parse() throw(Exc_IncorrectFormat);
-	//Print
-	void PrintAll() throw();
+	void Parse();
+	// Print
+	void PrintAll() noexcept;
 	// Checks if a section exists.
-	bool IsHaveSection(const string& section_name) const throw();
+	bool IsHaveSection(const std::string& section_name) const;
 	// Checks if a pair param-section exists.
-	bool IsHaveParam(const string& section_name,const string& param_name) const
-		throw(Exc_SectionNotFound, Exc_ParamNotFound);
+	bool IsHaveParam(const std::string& section_name, const std::string& param_name) const;
+	// Return value from data by section and parameter 
 	template<typename T>
-	T GetValue(const std::string &section_name, const std::string &param_name) const ;
-    ~IniParser() {
-        data.clear();
-        file.close();
-    }
+	T GetValue(const std::string &section_name, const std::string &param_name) const noexcept;
+	~IniParser();
 private:
-	ifstream file;
-	map<string, map<string, string> > data;
+	// Opens Ini file
+	void Initialize(const std::string& filename);
+	std::ifstream file;
+	std::map <std::string, std::map <std::string, std::string> > data;
 };

@@ -1,6 +1,5 @@
-/*
 #include "IniParserException.h"
 
-virtual const char* IniParserException::what() const {
+const char* IniParserException::what() const noexcept {
 	return message.c_str();
-}*/
+}

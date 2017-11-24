@@ -1,31 +1,24 @@
 #pragma once
-
 #include <exception>
 #include <string>
 
 class IniParserException : public std::exception {
 public:
     IniParserException(const std::string &excMessage) : message(excMessage) {}
-	std::string  what() {
-        return message;
-    }
-    ~IniParserException() throw() {}
+	virtual const char* what() const noexcept;
+    ~IniParserException() noexcept {}
 private:
     std::string message;
 };
-class Exc_IO : public IniParserException {
+class IO_Exception : public IniParserException {
 public:
-	Exc_IO(const std::string &filename) : IniParserException("File " + filename + " can't be read.\n") {};
+	IO_Exception(const std::string &filename) : IniParserException("File " + filename + " can't be read.\n") {};
 };
-class Exc_IncorrectFormat : public IniParserException {
+class Format_Exception : public IniParserException {
 public:
-    Exc_IncorrectFormat(const std::string &line) : IniParserException("Format incorrect in line: " + line) {};
+	Format_Exception(const std::string &line) : IniParserException("Format incorrect in line: " + line + '\n') {};
 };
-class Exc_SectionNotFound : public IniParserException {
+class Data_Exception : public IniParserException {
 public:
-	Exc_SectionNotFound(const std::string &section_name) : IniParserException("Section '" + section_name + "' is not found.\n") {};
-};
-class Exc_ParamNotFound : public IniParserException {
-public:
-	Exc_ParamNotFound(const std::string &param_name) : IniParserException("Param '" + param_name + "' is not found.\n") {};
+	Data_Exception(const char *data_key_level, const std::string &key_name) : IniParserException(std::string(data_key_level) + '"'+ key_name + '"' + " can`t be found.\n") {};
 };
