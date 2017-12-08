@@ -42,9 +42,9 @@ void IniParser::Parse() {
         }
     }
 }
-void IniParser::PrintAll() noexcept {
-	std::map<std::string, std::map<std::string, std::string> >::iterator it;
-	std::map<std::string, std::string>::iterator init;
+void IniParser::PrintAll() const noexcept {
+	std::map<std::string, std::map<std::string, std::string> >::const_iterator it;
+	std::map<std::string, std::string>::const_iterator init;
 	for (it = data.begin(); it != data.end(); it++) {
 		std::cout << it->first << std::endl;
 		for (init = (it->second).begin(); init != (it->second).end(); init++) {
